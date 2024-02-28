@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ encore_entry_script_tags("searchContact") }}
+{% endblock %}
+{% block title %}{{ parent() }} - Accueil{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Annuaire</h1>
+
+    <input type="text" id="recherche" class="form-control" placeholder="dupont"/>
+
+    <div class="text-center">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.id }}</td>
+                    <td>{{ contact.nom }}</td>
+                    <td>{{ contact.prenom }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.telephone }}</td>
+                    <td>
+                        <a href="{{ path('detail-contact', {'id': contact.id}) }}" class="btn btn-info">Détail</a>
+                        <a href="{{ path('editer-contact', {'id': contact.id}) }}" class="btn btn-warning">Éditer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun contact trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <a href="{{ path('nouveau-contact') }}" class="btn btn-success">Nouveau</a>
+{% endblock %}

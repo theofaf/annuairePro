@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Editer contact{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Editer ce contact</h1>
+
+    {{ include('contact/_form.html.twig') }}
+
+    <div class="text-center inline-block">
+        <a href="{{ path('accueil') }}" class="btn btn-info">Retour</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('contact/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+{% endblock %}

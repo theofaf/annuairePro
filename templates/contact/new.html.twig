@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Nouveau contact{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Créer un nouveau contact</h1>
+
+    {{ include('contact/_form.html.twig') }}
+
+    <div class="text-center inline-block">
+        <a href="{{ path('accueil') }}" class="btn btn-info">Retour</a>
+    </div>
+{% endblock %}

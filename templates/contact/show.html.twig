@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Détail contact{% endblock %}
+
+{% block body %}
+    <h1>Contact</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ contact.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ contact.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ contact.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if not impression %}
+        <a href="{{ path('accueil') }}" class="btn btn-info">Retour</a>
+        <a href="{{ path('editer-contact', {'id': contact.id}) }}" class="btn btn-success">Éditer</a>
+        <a title="imprimer en pdf" href="{{ path('imprimer-contact', {'id': contact.id}) }}" class="btn btn-warning">Imprimer</a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('contact/_delete_form.html.twig') }}
+        {% endif %}
+
+        <div class="text-center">
+
+            {% if form is defined %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            {% endif %}
+            {% if messages and messages is not null %}
+                {% for message in messages %}
+                    <p class="form-control mb-2">De {{ message.collaborateur.nom }} : {{ message.contenu }} le {{ message.date | date('d/m/Y H:i:s') }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+{% endblock %}
